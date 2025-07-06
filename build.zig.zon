@@ -1,8 +1,8 @@
 .{
-    .name = .ghostty,
-    .version = "1.1.4",
+    .name = .ghostshell,
+    .version = "1.0.0",
     .paths = .{""},
-    .fingerprint = 0x64407a2a0b4147e5,
+    .fingerprint = 0xf0422655110b12ba,
     .dependencies = .{
         // Zig libs
 

@@ -12,7 +12,7 @@ const adw_version = @import("../apprt/gtk/adw_version.zig");
 
 pub const Options = struct {};
 
-/// The `version` command is used to display information about Ghostty. Recognized as
+/// The `version` command is used to display information about Ghostshell. Recognized as
 /// either `+version` or `--version`.
 pub fn run(alloc: Allocator) !u8 {
     _ = alloc;
@@ -22,11 +22,11 @@ pub fn run(alloc: Allocator) !u8 {
 
     if (tty) if (build_config.version.build) |commit_hash| {
         try stdout.print(
-            "\x1b]8;;https://github.com/ghostty-org/ghostty/commit/{s}\x1b\\",
+            "\x1b]8;;https://github.com/ghostkellz/ghostshell/commit/{s}\x1b\\",
             .{commit_hash},
         );
     };
-    try stdout.print("Ghostty {s}\n\n", .{build_config.version_string});
+    try stdout.print("Ghostshell {s}\n\n", .{build_config.version_string});
     if (tty) try stdout.print("\x1b]8;;\x1b\\", .{});
 
     try stdout.print("Version\n", .{});

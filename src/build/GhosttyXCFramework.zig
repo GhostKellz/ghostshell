@@ -3,7 +3,7 @@ const GhosttyXCFramework = @This();
 const std = @import("std");
 const Config = @import("Config.zig");
 const SharedDeps = @import("SharedDeps.zig");
-const GhosttyLib = @import("GhosttyLib.zig");
+const GhostshellLib = @import("GhostshellLib.zig");
 const XCFrameworkStep = @import("XCFrameworkStep.zig");
 
 xcframework: *XCFrameworkStep,
@@ -17,16 +17,16 @@ pub fn init(
     target: Target,
 ) !GhosttyXCFramework {
     // Universal macOS build
-    const macos_universal = try GhosttyLib.initMacOSUniversal(b, deps);
+    const macos_universal = try GhostshellLib.initMacOSUniversal(b, deps);
 
     // Native macOS build
-    const macos_native = try GhosttyLib.initStatic(b, &try deps.retarget(
+    const macos_native = try GhostshellLib.initStatic(b, &try deps.retarget(
         b,
         Config.genericMacOSTarget(b, null),
     ));
 
     // iOS
-    const ios = try GhosttyLib.initStatic(b, &try deps.retarget(
+    const ios = try GhostshellLib.initStatic(b, &try deps.retarget(
         b,
         b.resolveTargetQuery(.{
             .cpu_arch = .aarch64,
@@ -37,7 +37,7 @@ pub fn init(
     ));
 
     // iOS Simulator
-    const ios_sim = try GhosttyLib.initStatic(b, &try deps.retarget(
+    const ios_sim = try GhostshellLib.initStatic(b, &try deps.retarget(
         b,
         b.resolveTargetQuery(.{
             .cpu_arch = .aarch64,

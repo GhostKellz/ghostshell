@@ -1,5 +1,5 @@
 {
-  description = "👻";
+  description = "Ghostshell - Enhanced terminal emulator with NVIDIA, KDE, and PowerLevel10k optimizations";
 
   inputs = {
     # We want to stay as up to date as possible but need to be careful that the
@@ -45,7 +45,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
         in {
           devShell.${system} = pkgs.callPackage ./nix/devShell.nix {
-            zig = zig.packages.${system}."0.14.1";
+            zig = zig.packages.${system}."0.15.0";
             wraptest = pkgs.callPackage ./nix/wraptest.nix {};
             zon2nix = zon2nix;
           };

@@ -10,7 +10,7 @@
   git,
   ncurses,
   pkg-config,
-  zig_0_14,
+  zig_0_15,
   pandoc,
   revision ? "dirty",
   optimize ? "Debug",
@@ -27,7 +27,7 @@
   # https://github.com/ziglang/zig/issues/14281#issuecomment-1624220653 is
   # ultimately acted on and has made its way to a nixpkgs implementation, this
   # can probably be removed in favor of that.
-  zig_hook = zig_0_14.hook.overrideAttrs {
+  zig_hook = zig_0_15.hook.overrideAttrs {
     zig_default_flags = "-Dcpu=baseline -Doptimize=${optimize} --color off";
   };
   gi_typelib_path = import ./build-support/gi-typelib-path.nix {
@@ -39,8 +39,8 @@
   strip = optimize != "Debug" && optimize != "ReleaseSafe";
 in
   stdenv.mkDerivation (finalAttrs: {
-    pname = "ghostty";
-    version = "1.1.4";
+    pname = "ghostshell";
+    version = "1.0.0";
 
     # We limit source like this to try and reduce the amount of rebuilds as possible
     # thus we only provide the source that is needed for the build
@@ -111,7 +111,7 @@ in
     postInstall = ''
       terminfo_src=${
         if stdenv.hostPlatform.isDarwin
-        then ''"$out/Applications/Ghostty.app/Contents/Resources/terminfo"''
+        then ''"$out/Applications/Ghostshell.app/Contents/Resources/terminfo"''
         else "$out/share/terminfo"
       }
 
@@ -123,8 +123,8 @@ in
       echo "$terminfo" >> "$out/nix-support/propagated-user-env-packages"
 
       mkdir -p "$shell_integration"
-      mv "$out/share/ghostty/shell-integration" "$shell_integration/shell-integration"
-      ln -sf "$shell_integration/shell-integration" "$out/share/ghostty/shell-integration"
+      mv "$out/share/ghostshell/shell-integration" "$shell_integration/shell-integration"
+      ln -sf "$shell_integration/shell-integration" "$out/share/ghostshell/shell-integration"
       echo "$shell_integration" >> "$out/nix-support/propagated-user-env-packages"
 
       mv $out/share/vim/vimfiles "$vim"
@@ -137,12 +137,13 @@ in
     '';
 
     meta = {
-      homepage = "https://ghostty.org";
+      description = "Enhanced terminal emulator based on Ghostty with NVIDIA, KDE, and PowerLevel10k optimizations";
+      homepage = "https://github.com/ghostkellz/ghostshell";
       license = lib.licenses.mit;
       platforms = [
         "x86_64-linux"
         "aarch64-linux"
       ];
-      mainProgram = "ghostty";
+      mainProgram = "ghostshell";
     };
   })

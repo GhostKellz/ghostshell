@@ -100,7 +100,7 @@ fn configPathCandidates(alloc_arena: Allocator) ![]const []const u8 {
 
     paths.appendAssumeCapacity(try internal_os.xdg.config(
         alloc_arena,
-        .{ .subdir = "ghostty/config" },
+        .{ .subdir = "ghostshell/config" },
     ));
 
     return paths.items;

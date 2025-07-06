@@ -1,4 +1,4 @@
-const GhosttyI18n = @This();
+const GhostshellI18n = @This();
 
 const std = @import("std");
 const builtin = @import("builtin");
@@ -15,7 +15,7 @@ steps: []*std.Build.Step,
 /// committed to the repo.
 update_step: *std.Build.Step,
 
-pub fn init(b: *std.Build, cfg: *const Config) !GhosttyI18n {
+pub fn init(b: *std.Build, cfg: *const Config) !GhostshellI18n {
     _ = cfg;
 
     var steps = std.ArrayList(*std.Build.Step).init(b.allocator);
@@ -49,12 +49,12 @@ pub fn init(b: *std.Build, cfg: *const Config) !GhosttyI18n {
     };
 }
 
-pub fn install(self: *const GhosttyI18n) void {
+pub fn install(self: *const GhostshellI18n) void {
     self.addStepDependencies(self.owner.getInstallStep());
 }
 
 pub fn addStepDependencies(
-    self: *const GhosttyI18n,
+    self: *const GhostshellI18n,
     other_step: *std.Build.Step,
 ) void {
     for (self.steps) |step| other_step.dependOn(step);

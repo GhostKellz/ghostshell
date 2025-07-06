@@ -10,19 +10,19 @@ comptime {
 pub fn build(b: *std.Build) !void {
     const config = try buildpkg.Config.init(b);
 
-    // Ghostty resources like terminfo, shell integration, themes, etc.
-    const resources = try buildpkg.GhosttyResources.init(b, &config);
-    const i18n = try buildpkg.GhosttyI18n.init(b, &config);
+    // Ghostshell resources like terminfo, shell integration, themes, etc.
+    const resources = try buildpkg.GhostshellResources.init(b, &config);
+    const i18n = try buildpkg.GhostshellI18n.init(b, &config);
 
     // Ghostty dependencies used by many artifacts.
     const deps = try buildpkg.SharedDeps.init(b, &config);
     if (config.emit_helpgen) deps.help_strings.install();
 
-    // Ghostty executable, the actual runnable Ghostty program.
-    const exe = try buildpkg.GhosttyExe.init(b, &config, &deps);
+    // Ghostshell executable, the actual runnable Ghostshell program.
+    const exe = try buildpkg.GhostshellExe.init(b, &config, &deps);
 
-    // Ghostty docs
-    const docs = try buildpkg.GhosttyDocs.init(b, &deps);
+    // Ghostshell docs
+    const docs = try buildpkg.GhostshellDocs.init(b, &deps);
     if (config.emit_docs) {
         docs.install();
     } else if (config.target.result.os.tag.isDarwin()) {
@@ -32,16 +32,16 @@ pub fn build(b: *std.Build) !void {
         docs.installDummy(b.getInstallStep());
     }
 
-    // Ghostty webdata
-    const webdata = try buildpkg.GhosttyWebdata.init(b, &deps);
+    // Ghostshell webdata
+    const webdata = try buildpkg.GhostshellWebdata.init(b, &deps);
     if (config.emit_webdata) webdata.install();
 
-    // Ghostty bench tools
-    const bench = try buildpkg.GhosttyBench.init(b, &deps);
+    // Ghostshell bench tools
+    const bench = try buildpkg.GhostshellBench.init(b, &deps);
     if (config.emit_bench) bench.install();
 
-    // Ghostty dist tarball
-    const dist = try buildpkg.GhosttyDist.init(b, &config);
+    // Ghostshell dist tarball
+    const dist = try buildpkg.GhostshellDist.init(b, &config);
     {
         const step = b.step("dist", "Build the dist tarball");
         step.dependOn(dist.install_step);
@@ -50,35 +50,35 @@ pub fn build(b: *std.Build) !void {
         check_step.dependOn(dist.install_step);
     }
 
-    // libghostty
-    const libghostty_shared = try buildpkg.GhosttyLib.initShared(
+    // libghostshell
+    const libghostshell_shared = try buildpkg.GhostshellLib.initShared(
         b,
         &deps,
     );
-    const libghostty_static = try buildpkg.GhosttyLib.initStatic(
+    const libghostshell_static = try buildpkg.GhostshellLib.initStatic(
         b,
         &deps,
     );
 
-    // Runtime "none" is libghostty, anything else is an executable.
+    // Runtime "none" is libghostshell, anything else is an executable.
     if (config.app_runtime != .none) {
         exe.install();
         resources.install();
         i18n.install();
     } else {
-        // Libghostty
+        // Libghostshell
         //
-        // Note: libghostty is not stable for general purpose use. It is used
-        // heavily by Ghostty on macOS but it isn't built to be reusable yet.
+        // Note: libghostshell is not stable for general purpose use. It is used
+        // heavily by Ghostshell but it isn't built to be reusable yet.
         // As such, these build steps are lacking. For example, the Darwin
         // build only produces an xcframework.
 
         // We shouldn't have this guard but we don't currently
         // build on macOS this way ironically so we need to fix that.
         if (!config.target.result.os.tag.isDarwin()) {
-            libghostty_shared.installHeader(); // Only need one header
-            libghostty_shared.install("libghostty.so");
-            libghostty_static.install("libghostty.a");
+            libghostshell_shared.installHeader(); // Only need one header
+            libghostshell_shared.install("libghostshell.so");
+            libghostshell_static.install("libghostshell.a");
         }
     }
 

@@ -6,7 +6,7 @@ const HelpStrings = @import("HelpStrings.zig");
 const MetallibStep = @import("MetallibStep.zig");
 const UnicodeTables = @import("UnicodeTables.zig");
 const GhosttyFrameData = @import("GhosttyFrameData.zig");
-const DistResource = @import("GhosttyDist.zig").Resource;
+const DistResource = @import("GhostshellDist.zig").Resource;
 
 const gresource = @import("../apprt/gtk/gresource.zig");
 

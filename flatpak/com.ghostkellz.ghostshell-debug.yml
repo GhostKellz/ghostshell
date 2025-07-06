@@ -1,12 +1,12 @@
-app-id: com.mitchellh.ghostty-debug
+app-id: com.ghostkellz.ghostshell-debug
 runtime: org.gnome.Platform
 runtime-version: "48"
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.ziglang
-default-branch: tip
-command: ghostty
-rename-icon: com.mitchellh.ghostty
+default-branch: main
+command: ghostshell
+rename-icon: com.ghostkellz.ghostshell
 finish-args:
   # 3D rendering
   - --device=dri
@@ -34,7 +34,7 @@ cleanup:
 modules:
   - dependencies.yml
 
-  - name: ghostty
+  - name: ghostshell
     buildsystem: simple
     build-options:
       append-path: /usr/lib/sdk/ziglang

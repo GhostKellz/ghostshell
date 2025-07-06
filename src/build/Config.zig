@@ -15,12 +15,11 @@ const WasmTarget = @import("../os/wasm/target.zig").Target;
 const gtk = @import("gtk.zig");
 const GitVersion = @import("GitVersion.zig");
 
-/// The version of the next release.
+/// The version of Ghostshell.
 ///
-/// TODO: When Zig 0.14 is released, derive this from build.zig.zon directly.
-/// Until then this MUST match build.zig.zon and should always be the
-/// _next_ version to release.
-const app_version: std.SemanticVersion = .{ .major = 1, .minor = 1, .patch = 4 };
+/// This defines the version that will be displayed when running --version
+/// and used throughout the application for version identification.
+const app_version: std.SemanticVersion = .{ .major = 1, .minor = 0, .patch = 0 };
 
 /// Standard build configuration options.
 optimize: std.builtin.OptimizeMode,

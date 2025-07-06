@@ -1,11 +1,20 @@
 <!-- LOGO -->
 <h1>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/fe853809-ba8b-400b-83ab-a9a0da25be8a" alt="Logo" width="128">
+  <img src="assets/icons/ghostshell_icon_128.png" alt="Ghostshell Logo" width="128">
   <br>Ghostshell
 </h1>
   <p align="center">
     Pure Zig. Pure Speed. Pure NVIDIA. Home Lab Dream Shell.
+    <br />
+    <br />
+    <img src="https://img.shields.io/badge/zig-v0.15.0-orange?style=for-the-badge&logo=zig" alt="Zig v0.15.0">
+    <img src="https://img.shields.io/badge/wayland-compatible-blue?style=for-the-badge&logo=wayland" alt="Wayland Compatible">
+    <img src="https://img.shields.io/badge/arch_linux-optimized-1793d1?style=for-the-badge&logo=archlinux" alt="Arch Linux Optimized">
+    <img src="https://img.shields.io/badge/nvidia-accelerated-76b900?style=for-the-badge&logo=nvidia" alt="NVIDIA Accelerated">
+    <img src="https://img.shields.io/badge/TokioZ-async_ready-green?style=for-the-badge" alt="TokioZ Async">
+    <img src="https://img.shields.io/badge/powerlevel10k-compatible-ff6a00?style=for-the-badge&logo=powershell" alt="PowerLevel10k">
+    <br />
     <br />
     <a href="#about">About</a>
     ·
@@ -31,6 +40,9 @@ Ghostshell provides:
 - **Pure Speed**: NVIDIA GPU-accelerated rendering with conditional VSync and triple buffering
 - **Pure NVIDIA**: First-class support for GeForce and Quadro graphics cards
 - **Home Lab Ready**: Optimized for server monitoring, SSH sessions, and system administration
+- **PowerLevel10k Compatible**: Out-of-the-box support for PowerLevel10k prompt with optimized rendering
+- **Shell Optimized**: Enhanced Zsh and Fish shell integration with Wayland + KDE optimizations
+- **TokioZ Async**: Built-in async runtime for non-blocking terminal operations
 
 Ghostshell pushes the boundaries of terminal performance by implementing NVIDIA-specific
 optimizations and leveraging the latest Zig compiler features. It's designed as a drop-in
@@ -94,9 +106,64 @@ Ghostshell includes several NVIDIA-specific optimizations for maximum performanc
 
 See [nvidia-optimizations.md](nvidia-optimizations.md) for technical details.
 
+## Shell Integration & PowerLevel10k
+
+Ghostshell is optimized for modern shell environments with first-class support for popular prompts and shell frameworks:
+
+### PowerLevel10k Compatibility
+- **Out-of-the-box support** for PowerLevel10k without configuration
+- **Optimized rendering** for complex prompt elements and icons
+- **Fast glyph rendering** for Nerd Font icons and symbols
+- **Smooth animations** for transient prompts and loading indicators
+
+### Zsh Integration
+- Enhanced completion support with async rendering
+- Optimized for Oh My Zsh and Prezto frameworks
+- Fast syntax highlighting with GPU acceleration
+- Seamless integration with zsh-autosuggestions
+
+### Fish Shell Support
+- Native Fish shell integration with optimized rendering
+- Enhanced autocomplete with real-time suggestions
+- Fast syntax highlighting for Fish syntax
+- Optimized for Fisher and Oh My Fish frameworks
+
+### Wayland + KDE Optimizations
+- **Native Wayland support** with hardware acceleration
+- **KDE Plasma integration** for consistent theming
+- **Optimized clipboard handling** for Wayland security model
+- **Multi-monitor support** with per-monitor DPI scaling
+- **Touch and gesture support** for convertible devices
+
+### Configuration Example
+
+Create `~/.config/ghostshell/config` for optimal shell integration:
+
+```ini
+# PowerLevel10k optimizations
+font-family = "MesloLGS NF"
+font-size = 12
+font-feature = +liga
+font-feature = +calt
+
+# Shell integration
+shell-integration = zsh
+shell-integration-features = cursor,sudo,title
+
+# Wayland + KDE optimizations
+window-decoration = true
+gtk-titlebar = false
+wayland-app-id = com.ghostkellz.ghostshell
+
+# Performance for complex prompts
+scrollback-limit = 100000
+fps-cap = 120
+vsync = true
+```
+
 ## Roadmap and Status
 
-Ghostshell development roadmap focusing on NVIDIA optimization and home lab features:
+Ghostshell development roadmap focusing on NVIDIA optimization, shell integration, and home lab features:
 
 |  #  | Step                                                      | Status |
 | :-: | --------------------------------------------------------- | :----: |
@@ -104,10 +171,14 @@ Ghostshell development roadmap focusing on NVIDIA optimization and home lab feat
 |  2  | NVIDIA GPU optimizations (VSync, triple buffering)        |   ✅   |
 |  3  | Arch Linux packaging and distribution                     |   ✅   |
 |  4  | Home lab optimizations (SSH, monitoring, performance)     |   ✅   |
-|  5  | Advanced NVIDIA features (HDR, G-SYNC, custom shaders)    |   🚧   |
-|  6  | Built-in monitoring dashboard and system tools            |   ❌   |
-|  7  | CUDA integration for compute workloads                    |   ❌   |
-|  8  | Multi-server management interface                         |   ❌   |
+|  5  | PowerLevel10k out-of-the-box compatibility                |   🚧   |
+|  6  | Wayland + KDE native integration and optimizations        |   🚧   |
+|  7  | Enhanced Zsh/Fish shell integration                       |   🚧   |
+|  8  | TokioZ async runtime integration                          |   🚧   |
+|  9  | Advanced NVIDIA features (HDR, G-SYNC, custom shaders)    |   ❌   |
+| 10  | Built-in monitoring dashboard and system tools            |   ❌   |
+| 11  | CUDA integration for compute workloads                    |   ❌   |
+| 12  | Multi-server management interface                         |   ❌   |
 |  N  | Ray-traced terminal effects and advanced rendering        |   ❌   |
 
 Additional details for each step in the big roadmap below:

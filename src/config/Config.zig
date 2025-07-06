@@ -466,8 +466,8 @@ pub const compatibility = std.StaticStringMap(
 /// include path separators unless it is an absolute pathname.
 ///
 /// The first directory is the `themes` subdirectory of your Ghostty
-/// configuration directory. This is `$XDG_CONFIG_HOME/ghostty/themes` or
-/// `~/.config/ghostty/themes`.
+/// configuration directory. This is `$XDG_CONFIG_HOME/ghostshell/themes` or
+/// `~/.config/ghostshell/themes`.
 ///
 /// The second directory is the `themes` subdirectory of the Ghostty resources
 /// directory. Ghostty ships with a multitude of themes that will be installed
@@ -1845,7 +1845,7 @@ keybind: Keybinds = .{},
 
 /// When this is true, the default configuration file paths will be loaded.
 /// The default configuration file paths are currently only the XDG
-/// config path ($XDG_CONFIG_HOME/ghostty/config).
+/// config path ($XDG_CONFIG_HOME/ghostshell/config).
 ///
 /// If this is false, the default configuration paths will not be loaded.
 /// This is targeted directly at using Ghostty from the CLI in a way
@@ -2812,7 +2812,7 @@ else
 /// features. An option exists in vim to modify this: `:set
 /// keyprotocol=ghostty:kitty`, however a bug in the implementation prevents it
 /// from working properly. https://github.com/vim/vim/pull/13211 fixes this.
-term: []const u8 = "xterm-ghostty",
+term: []const u8 = "xterm-ghostshell",
 
 /// String to send when we receive `ENQ` (`0x05`) from the command that we are
 /// running. Defaults to an empty string if not set.
@@ -3064,7 +3064,7 @@ fn writeConfigTemplate(path: []const u8) !void {
 }
 
 /// Load configurations from the default configuration files. The default
-/// configuration file is at `$XDG_CONFIG_HOME/ghostty/config`.
+/// configuration file is at `$XDG_CONFIG_HOME/ghostshell/config`.
 ///
 /// On macOS, `$HOME/Library/Application Support/$CFBundleIdentifier/config`
 /// is also loaded.
@@ -3101,7 +3101,7 @@ pub fn loadDefaultFiles(self: *Config, alloc: Allocator) !void {
 fn defaultXdgPath(alloc: Allocator) ![]const u8 {
     return try internal_os.xdg.config(
         alloc,
-        .{ .subdir = "ghostty/config" },
+        .{ .subdir = "ghostshell/config" },
     );
 }
 
@@ -3652,7 +3652,7 @@ pub fn finalize(self: *Config) !void {
     // Prevent setting TERM to an empty string
     if (self.term.len == 0) {
         // HACK: See comment above at definition
-        self.term = "xterm-ghostty";
+        self.term = "xterm-ghostshell";
     }
 
     // The default for the working directory depends on the system.

@@ -75,13 +75,13 @@ check() {
     cd "$srcdir/$(basename $(realpath .))"
     
     # Verify the binary was built
-    if [[ ! -f "zig-out/bin/ghostty" ]]; then
-        echo "Error: ghostty binary not found"
+    if [[ ! -f "zig-out/bin/ghostshell" ]]; then
+        echo "Error: ghostshell binary not found"
         return 1
     fi
     
     # Basic functionality test
-    ./zig-out/bin/ghostty --version
+    ./zig-out/bin/ghostshell --version
     echo "Build verification passed"
 }
 
@@ -89,12 +89,12 @@ package() {
     cd "$srcdir/$(basename $(realpath .))"
     
     # Install binary
-    install -Dm755 zig-out/bin/ghostty "$pkgdir/usr/bin/ghostshell"
+    install -Dm755 zig-out/bin/ghostshell "$pkgdir/usr/bin/ghostshell"
     
     # Install desktop file
-    if [[ -f "zig-out/share/applications/com.mitchellh.ghostty.desktop" ]]; then
-        install -Dm644 zig-out/share/applications/com.mitchellh.ghostty.desktop \
-            "$pkgdir/usr/share/applications/com.mitchellh.ghostty.desktop"
+    if [[ -f "zig-out/share/applications/com.ghostkellz.ghostshell.desktop" ]]; then
+        install -Dm644 zig-out/share/applications/com.ghostkellz.ghostshell.desktop \
+            "$pkgdir/usr/share/applications/com.ghostkellz.ghostshell.desktop"
     fi
     
     # Install icons
@@ -109,18 +109,18 @@ package() {
     
     # Install completion files if they exist
     if [[ -d "zig-out/share/bash-completion" ]]; then
-        install -Dm644 zig-out/share/bash-completion/completions/ghostty \
-            "$pkgdir/usr/share/bash-completion/completions/ghostty"
+        install -Dm644 zig-out/share/bash-completion/completions/ghostshell \
+            "$pkgdir/usr/share/bash-completion/completions/ghostshell"
     fi
     
     if [[ -d "zig-out/share/zsh" ]]; then
-        install -Dm644 zig-out/share/zsh/site-functions/_ghostty \
-            "$pkgdir/usr/share/zsh/site-functions/_ghostty"
+        install -Dm644 zig-out/share/zsh/site-functions/_ghostshell \
+            "$pkgdir/usr/share/zsh/site-functions/_ghostshell"
     fi
     
     if [[ -d "zig-out/share/fish" ]]; then
-        install -Dm644 zig-out/share/fish/vendor_completions.d/ghostty.fish \
-            "$pkgdir/usr/share/fish/vendor_completions.d/ghostty.fish"
+        install -Dm644 zig-out/share/fish/vendor_completions.d/ghostshell.fish \
+            "$pkgdir/usr/share/fish/vendor_completions.d/ghostshell.fish"
     fi
     
     # Install license
@@ -132,8 +132,8 @@ package() {
     # Install example configuration showing NVIDIA optimizations
     mkdir -p "$pkgdir/usr/share/doc/$pkgname/examples"
     cat > "$pkgdir/usr/share/doc/$pkgname/examples/nvidia-config" << 'EOF'
-# Ghostty NVIDIA Optimizations Configuration
-# Copy to ~/.config/ghostty/config
+# Ghostshell NVIDIA Optimizations Configuration
+# Copy to ~/.config/ghostshell/config
 
 # NVIDIA GPU optimizations
 vsync = true
@@ -154,7 +154,18 @@ theme = "dark"
 scrollback-limit = 100000
 EOF
     
+    # Install shell configuration scripts
+    install -Dm755 scripts/import-shell-config.sh "$pkgdir/usr/share/ghostshell/scripts/import-shell-config.sh"
+    install -Dm755 scripts/auto-detect-shell.sh "$pkgdir/usr/share/ghostshell/scripts/auto-detect-shell.sh"
+    install -Dm755 scripts/setup-powerlevel10k.sh "$pkgdir/usr/share/ghostshell/scripts/setup-powerlevel10k.sh"
+    
     echo "Installation complete!"
     echo "NVIDIA optimizations documentation: /usr/share/doc/$pkgname/nvidia-optimizations.md"
     echo "Example NVIDIA config: /usr/share/doc/$pkgname/examples/nvidia-config"
+    echo ""
+    echo "Shell Configuration Setup:"
+    echo "  Auto-import existing shell configs: /usr/share/ghostshell/scripts/import-shell-config.sh"
+    echo "  Auto-detect and optimize: /usr/share/ghostshell/scripts/auto-detect-shell.sh"
+    echo "  PowerLevel10k setup: /usr/share/ghostshell/scripts/setup-powerlevel10k.sh"
+    echo "  Or copy: /usr/share/ghostshell/configs/powerlevel10k-optimized.conf to ~/.config/ghostshell/config"
 }

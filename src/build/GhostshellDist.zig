@@ -1,4 +1,4 @@
-const GhosttyDist = @This();
+const GhostshellDist = @This();
 
 const std = @import("std");
 const Config = @import("Config.zig");
@@ -16,7 +16,7 @@ archive_step: *std.Build.Step,
 /// The step to depend on for checking the dist
 check_step: *std.Build.Step,
 
-pub fn init(b: *std.Build, cfg: *const Config) !GhosttyDist {
+pub fn init(b: *std.Build, cfg: *const Config) !GhostshellDist {
     // Get the resources we're going to inject into the source tarball.
     const alloc = b.allocator;
     var resources: std.ArrayListUnmanaged(Resource) = .empty;

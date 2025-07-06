@@ -1,4 +1,4 @@
-const GhosttyResources = @This();
+const GhostshellResources = @This();
 
 const std = @import("std");
 const builtin = @import("builtin");
@@ -12,7 +12,7 @@ const RunStep = std.Build.Step.Run;
 
 steps: []*std.Build.Step,
 
-pub fn init(b: *std.Build, cfg: *const Config) !GhosttyResources {
+pub fn init(b: *std.Build, cfg: *const Config) !GhostshellResources {
     var steps = std.ArrayList(*std.Build.Step).init(b.allocator);
     errdefer steps.deinit();
 
@@ -242,14 +242,14 @@ fn addLinuxAppResources(
     // Background:
     // https://developer.gnome.org/documentation/guidelines/maintainer/integrating.html
 
-    const name = b.fmt("Ghostty{s}", .{
+    const name = b.fmt("Ghostshell{s}", .{
         switch (cfg.optimize) {
             .Debug, .ReleaseSafe => " (Debug)",
             .ReleaseFast, .ReleaseSmall => "",
         },
     });
 
-    const app_id = b.fmt("com.mitchellh.ghostty{s}", .{
+    const app_id = b.fmt("com.ghostkellz.ghostshell{s}", .{
         switch (cfg.optimize) {
             .Debug, .ReleaseSafe => "-debug",
             .ReleaseFast, .ReleaseSmall => "",
@@ -257,7 +257,7 @@ fn addLinuxAppResources(
     });
 
     const exe_abs_path = b.fmt(
-        "{s}/bin/ghostty",
+        "{s}/bin/ghostshell",
         .{b.install_prefix},
     );
 
@@ -304,7 +304,7 @@ fn addLinuxAppResources(
         // AppStream metainfo so that application has rich metadata
         // within app stores
         try ts.append(.{
-            b.path("dist/linux/com.mitchellh.ghostty.metainfo.xml.in"),
+            b.path("dist/linux/com.ghostkellz.ghostshell.metainfo.xml.in"),
             b.fmt("share/metainfo/{s}.metainfo.xml", .{app_id}),
         });
 
@@ -318,7 +318,7 @@ fn addLinuxAppResources(
         }, .{
             .NAME = name,
             .APPID = app_id,
-            .GHOSTTY = exe_abs_path,
+            .GHOSTSHELL = exe_abs_path,
         });
 
         // Template output has a single header line we want to remove.
@@ -336,44 +336,55 @@ fn addLinuxAppResources(
 
     // Right click menu action for Plasma desktop
     try steps.append(&b.addInstallFile(
-        b.path("dist/linux/ghostty_dolphin.desktop"),
-        "share/kio/servicemenus/com.mitchellh.ghostty.desktop",
+        b.path("dist/linux/ghostshell_dolphin.desktop"),
+        "share/kio/servicemenus/com.ghostkellz.ghostshell.desktop",
     ).step);
 
     // Right click menu action for Nautilus. Note that this _must_ be named
-    // `ghostty.py`. Using the full app id causes problems (see #5468).
+    // `ghostshell.py`. Using the full app id causes problems (see #5468).
     try steps.append(&b.addInstallFile(
-        b.path("dist/linux/ghostty_nautilus.py"),
-        "share/nautilus-python/extensions/ghostty.py",
+        b.path("dist/linux/ghostshell_nautilus.py"),
+        "share/nautilus-python/extensions/ghostshell.py",
+    ).step);
+
+    // PowerLevel10k optimization files
+    try steps.append(&b.addInstallFile(
+        b.path("configs/powerlevel10k-optimized.conf"),
+        "share/ghostshell/configs/powerlevel10k-optimized.conf",
+    ).step);
+    
+    try steps.append(&b.addInstallFile(
+        b.path("scripts/setup-powerlevel10k.sh"),
+        "share/ghostshell/scripts/setup-powerlevel10k.sh",
     ).step);
 
     // Various icons that our application can use, including the icon
-    // that will be used for the desktop.
+    // that will be used for the desktop. Using our custom Ghostshell icons.
     try steps.append(&b.addInstallFile(
-        b.path("images/icons/icon_16.png"),
-        "share/icons/hicolor/16x16/apps/com.mitchellh.ghostty.png",
+        b.path("assets/icons/ghostshell_icon_128.png"),
+        "share/icons/hicolor/16x16/apps/ghostshell.png",
     ).step);
     try steps.append(&b.addInstallFile(
-        b.path("images/icons/icon_32.png"),
-        "share/icons/hicolor/32x32/apps/com.mitchellh.ghostty.png",
+        b.path("assets/icons/ghostshell_icon_128.png"),
+        "share/icons/hicolor/32x32/apps/ghostshell.png",
     ).step);
     try steps.append(&b.addInstallFile(
-        b.path("images/icons/icon_128.png"),
-        "share/icons/hicolor/128x128/apps/com.mitchellh.ghostty.png",
+        b.path("assets/icons/ghostshell_icon_128.png"),
+        "share/icons/hicolor/128x128/apps/ghostshell.png",
     ).step);
     try steps.append(&b.addInstallFile(
-        b.path("images/icons/icon_256.png"),
-        "share/icons/hicolor/256x256/apps/com.mitchellh.ghostty.png",
+        b.path("assets/icons/ghostshell_icon.png"),
+        "share/icons/hicolor/256x256/apps/ghostshell.png",
     ).step);
     try steps.append(&b.addInstallFile(
-        b.path("images/icons/icon_512.png"),
-        "share/icons/hicolor/512x512/apps/com.mitchellh.ghostty.png",
+        b.path("assets/icons/ghostshell_icon.png"),
+        "share/icons/hicolor/512x512/apps/ghostshell.png",
     ).step);
     // Flatpaks only support icons up to 512x512.
     if (!cfg.flatpak) {
         try steps.append(&b.addInstallFile(
-            b.path("images/icons/icon_1024.png"),
-            "share/icons/hicolor/1024x1024/apps/com.mitchellh.ghostty.png",
+            b.path("assets/icons/ghostshell_icon.png"),
+            "share/icons/hicolor/1024x1024/apps/ghostshell.png",
         ).step);
     }
 
@@ -395,13 +406,13 @@ fn addLinuxAppResources(
     ).step);
 }
 
-pub fn install(self: *const GhosttyResources) void {
+pub fn install(self: *const GhostshellResources) void {
     const b = self.steps[0].owner;
     self.addStepDependencies(b.getInstallStep());
 }
 
 pub fn addStepDependencies(
-    self: *const GhosttyResources,
+    self: *const GhostshellResources,
     other_step: *std.Build.Step,
 ) void {
     for (self.steps) |step| other_step.dependOn(step);

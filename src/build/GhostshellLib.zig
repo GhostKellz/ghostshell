@@ -1,4 +1,4 @@
-const GhosttyLib = @This();
+const GhostshellLib = @This();
 
 const std = @import("std");
 const Config = @import("Config.zig");
@@ -15,7 +15,7 @@ output: std.Build.LazyPath,
 pub fn initStatic(
     b: *std.Build,
     deps: *const SharedDeps,
-) !GhosttyLib {
+) !GhostshellLib {
     const lib = b.addStaticLibrary(.{
         .name = "ghostty",
         .root_source_file = b.path("src/main_c.zig"),
@@ -56,7 +56,7 @@ pub fn initStatic(
 pub fn initShared(
     b: *std.Build,
     deps: *const SharedDeps,
-) !GhosttyLib {
+) !GhostshellLib {
     const lib = b.addSharedLibrary(.{
         .name = "ghostty",
         .root_source_file = b.path("src/main_c.zig"),
@@ -75,7 +75,7 @@ pub fn initShared(
 pub fn initMacOSUniversal(
     b: *std.Build,
     original_deps: *const SharedDeps,
-) !GhosttyLib {
+) !GhostshellLib {
     const aarch64 = try initStatic(b, &try original_deps.retarget(
         b,
         Config.genericMacOSTarget(b, .aarch64),
@@ -98,13 +98,13 @@ pub fn initMacOSUniversal(
     };
 }
 
-pub fn install(self: *const GhosttyLib, name: []const u8) void {
+pub fn install(self: *const GhostshellLib, name: []const u8) void {
     const b = self.step.owner;
     const lib_install = b.addInstallLibFile(self.output, name);
     b.getInstallStep().dependOn(&lib_install.step);
 }
 
-pub fn installHeader(self: *const GhosttyLib) void {
+pub fn installHeader(self: *const GhostshellLib) void {
     const b = self.step.owner;
     const header_install = b.addInstallHeaderFile(
         b.path("include/ghostty.h"),

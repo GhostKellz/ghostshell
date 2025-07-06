@@ -1,10 +1,10 @@
-// This is the main file for the C API. The C API is used to embed Ghostty
+// This is the main file for the C API. The C API is used to embed Ghostshell
 // within other applications. Depending on the build settings some APIs
 // may not be available (i.e. embedding into macOS exposes various Metal
 // support).
 //
 // This currently isn't supported as a general purpose embedding API.
-// This is currently used only to embed ghostty within a macOS app. However,
+// This is currently used only to embed ghostshell within a macOS app. However,
 // it could be expanded to be general purpose in the future.
 
 const std = @import("std");
@@ -12,7 +12,7 @@ const assert = std.debug.assert;
 const posix = std.posix;
 const builtin = @import("builtin");
 const build_config = @import("build_config.zig");
-const main = @import("main_ghostty.zig");
+const main = @import("main_ghostshell.zig");
 const state = &@import("global.zig").state;
 const apprt = @import("apprt.zig");
 const internal_os = @import("os/main.zig");

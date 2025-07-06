@@ -4,9 +4,9 @@ const std = @import("std");
 const builtin = @import("builtin");
 const RunStep = std.Build.Step.Run;
 const Config = @import("Config.zig");
-const Docs = @import("GhosttyDocs.zig");
-const I18n = @import("GhosttyI18n.zig");
-const Resources = @import("GhosttyResources.zig");
+const Docs = @import("GhostshellDocs.zig");
+const I18n = @import("GhostshellI18n.zig");
+const Resources = @import("GhostshellResources.zig");
 const XCFramework = @import("GhosttyXCFramework.zig");
 
 build: *std.Build.Step.Run,

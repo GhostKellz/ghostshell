@@ -1,33 +1,41 @@
-name: ghostty
+name: ghostshell
 base: core24
-summary: A terminal emulator
+summary: Enhanced terminal emulator based on Ghostty with NVIDIA and KDE optimizations
 description: |
-  Ghostty is a fast, feature-rich, and cross-platform terminal emulator that
-  uses platform-native UI and GPU acceleration.
+  Ghostshell is a fast, feature-rich, and cross-platform terminal emulator based on Ghostty
+  with enhanced optimizations for NVIDIA GPUs, KDE Plasma, Wayland, and PowerLevel10k integration.
+  Features Zig 0.15 compatibility, TokioZ async runtime, and ZCrypto integration.
 grade: stable
 confinement: classic
-contact: https://github.com/ghostty-org/ghostty/discussions
-issues: https://github.com/ghostty-org/ghostty/issues
-website: https://ghostty.org
+contact: https://github.com/ghostkellz/ghostshell/discussions
+issues: https://github.com/ghostkellz/ghostshell/issues
+website: https://github.com/ghostkellz/ghostshell
 license: MIT
-icon: images/icons/icon_512.png
-adopt-info: ghostty
+icon: assets/icons/ghostshell_icon.png
+adopt-info: ghostshell
 
 platforms:
   amd64:
   arm64:
 
 apps:
-  ghostty:
-    command: bin/ghostty
+  ghostshell:
+    command: bin/ghostshell
     command-chain: [bin/launcher]
-    completer: share/bash-completion/completions/ghostty.bash
-    desktop: share/applications/com.mitchellh.ghostty.desktop
+    completer: share/bash-completion/completions/ghostshell.bash
+    desktop: share/applications/com.ghostkellz.ghostshell.desktop
     #refresh-mode: ignore-running # Store rejects this, needs fix in review-tools
     environment:
-      PATH: /snap/ghostty/current/bin:/snap/ghostty/current/usr/bin:$PATH
+      PATH: /snap/ghostshell/current/bin:/snap/ghostshell/current/usr/bin:$PATH
       LC_ALL: C.UTF-8
-      GHOSTTY_RESOURCES_DIR: /snap/ghostty/current/share/ghostty
+      GHOSTTY_RESOURCES_DIR: /snap/ghostshell/current/share/ghostshell
+      # NVIDIA optimizations
+      GBM_BACKEND: nvidia-drm
+      __GLX_VENDOR_LIBRARY_NAME: nvidia
+      # Wayland optimizations
+      MOZ_ENABLE_WAYLAND: 1
+      QT_QPA_PLATFORM: wayland
+      GDK_BACKEND: wayland
 
 parts:
   launcher:
@@ -52,7 +60,7 @@ parts:
       rm -rf $CRAFT_PART_SRC/*
 
       if [[ -n $arch ]]; then
-        curl -LO --retry-connrefused --retry 10 https://ziglang.org/download/0.14.0/zig-linux-$arch-0.14.0.tar.xz
+        curl -LO --retry-connrefused --retry 10 https://ziglang.org/download/0.15.0/zig-linux-$arch-0.15.0.tar.xz
       else
         echo "Unsupported arch"
         exit 1
@@ -64,7 +72,7 @@ parts:
     prime:
       - -*
 
-  ghostty:
+  ghostshell:
     source: .
     after: [zig]
     plugin: nil
@@ -78,10 +86,10 @@ parts:
       - gettext
     # TODO: Remove -fno-sys=gtk4-layer-shell when we upgrade to a version that packages it Ubuntu 24.10+
     override-build: |
-      craftctl set version=$(cat VERSION)
+      craftctl set version=1.0.0
       $CRAFT_PART_SRC/../../zig/src/zig build -Dpatch-rpath=\$ORIGIN/../usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/core24/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR -Doptimize=ReleaseFast -Dcpu=baseline -fno-sys=gtk4-layer-shell
       cp -rp zig-out/* $CRAFT_PART_INSTALL/
-      sed -i 's|Icon=com.mitchellh.ghostty|Icon=${SNAP}/share/icons/hicolor/512x512/apps/com.mitchellh.ghostty.png|g' $CRAFT_PART_INSTALL/share/applications/com.mitchellh.ghostty.desktop
+      sed -i 's|Icon=com.ghostkellz.ghostshell|Icon=${SNAP}/assets/icons/ghostshell_icon.png|g' $CRAFT_PART_INSTALL/share/applications/com.ghostkellz.ghostshell.desktop
 
   libs:
     plugin: nil
