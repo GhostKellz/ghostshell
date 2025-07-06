@@ -116,7 +116,7 @@ pub fn main() !void {
     );
     for (icons) |icon| {
         try writer.print(
-            "    <file alias=\"{s}/apps/com.mitchellh.ghostty.png\">images/icons/icon_{s}.png</file>\n",
+            "    <file alias=\"{s}/apps/com.ghostkellz.ghostshell.png\">images/icons/icon_{s}.png</file>\n",
             .{ icon.alias, icon.source },
         );
     }

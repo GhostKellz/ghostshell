@@ -1005,7 +1005,7 @@ fn gtkActionAbout(
     self: *Window,
 ) callconv(.c) void {
     const name = "Ghostty";
-    const icon = "com.mitchellh.ghostty";
+    const icon = "com.ghostkellz.ghostshell";
     const website = "https://ghostty.org";
 
     if (adw_version.supportsDialogs()) {

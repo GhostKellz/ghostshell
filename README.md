@@ -28,12 +28,15 @@
 
 ## About
 
-**Ghostshell** is an enhanced terminal emulator based on Ghostty that differentiates itself by being
-optimized for **NVIDIA GPUs**, built with **Zig 0.15**, and designed for **home lab environments**. 
-While there are many excellent terminal emulators available, Ghostshell focuses specifically on
-maximum performance for NVIDIA users and power users who demand cutting-edge speed.
+**Ghostshell** is a fork of [Ghostty Terminal Emulator](https://github.com/ghostty-org/ghostty) created on **July 5, 2025** as an experimental project for **Arch Linux + NVIDIA + Wayland** users. This fork differentiates itself by being optimized for **NVIDIA GPUs**, built with **Zig 0.15**, and designed for **home lab environments**.
 
-**Created by:** Christopher Kelley <ckelley@ghostkellz.sh>
+This is an **experimental fork** that focuses specifically on maximum performance for NVIDIA users and power users who demand cutting-edge speed. While there are many excellent terminal emulators available, Ghostshell serves as a testing ground for specialized optimizations.
+
+**Fork Maintainer:** Christopher Kelley (GhostKellz) <ckelley@ghostkellz.sh>  
+**Organization:** CK Technology  
+**Original Project:** [Ghostty](https://github.com/ghostty-org/ghostty) by Mitchell Hashimoto (@mitchellh)
+
+> **⚠️ Important**: This is an independent experimental fork. For production use, consider the original [Ghostty project](https://github.com/ghostty-org/ghostty). See [FORK.md](FORK.md) for complete attribution details.
 
 Ghostshell provides:
 - **Pure Zig**: Built with Zig 0.15 for maximum performance and memory safety
@@ -412,10 +415,18 @@ For Ghostshell-specific issues:
 **Focus:** NVIDIA users, home lab enthusiasts, performance optimization
 
 **Acknowledgments:**
-- **Ghostty Project** - Original foundation and excellent architecture  
-- **Zig Community** - Modern systems programming language
-- **NVIDIA** - GPU acceleration capabilities and developer tools
-- **Arch Linux** - Excellent development environment and packaging
+
+We extend our deepest gratitude to the original [Ghostty project](https://github.com/ghostty-org/ghostty) and its contributors:
+- **Mitchell Hashimoto (@mitchellh)** - Original creator and project lead
+- **Ghostty Contributors** - For building an exceptional terminal emulator foundation
+- **Ghostty Community** - For fostering innovation in terminal technology
+
+Additional thanks to:
+- **Zig Community** - Modern systems programming language and tooling
+- **NVIDIA** - GPU acceleration capabilities and developer tools  
+- **Arch Linux** - Excellent development environment and packaging ecosystem
+
+> **Note**: Ghostshell is an independent experimental fork and is not affiliated with or endorsed by the original Ghostty project.
 
 ---
 

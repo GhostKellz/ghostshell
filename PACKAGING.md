@@ -1,15 +1,17 @@
-# Packaging Ghostty for Distribution
+# Packaging Ghostshell for Distribution
 
-Ghostty relies on downstream package maintainers to distribute Ghostty to
+Ghostshell (a fork of Ghostty) relies on downstream package maintainers to distribute Ghostshell to
 end-users. This document provides guidance to package maintainers on how to
-package Ghostty for distribution.
+package Ghostshell for distribution.
+
+> **Note**: This is packaging guidance for Ghostshell, a fork of [Ghostty](https://github.com/ghostty-org/ghostty). 
+> For packaging the original Ghostty, see the original project's documentation.
 
 > [!IMPORTANT]
 >
-> This document is only accurate for the Ghostty source alongside it.
-> **Do not use this document for older or newer versions of Ghostty!** If
-> you are reading this document in a different version of Ghostty, please
-> find the `PACKAGING.md` file alongside that version.
+> This document is only accurate for the Ghostshell source alongside it.
+> **Do not use this document for the original Ghostty or other versions!** If
+> you are packaging the original Ghostty, please refer to that project's documentation.
 
 ## Source Tarballs
 

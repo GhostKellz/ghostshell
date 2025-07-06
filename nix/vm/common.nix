@@ -36,8 +36,8 @@
   };
 
   environment.etc = {
-    "xdg/autostart/com.mitchellh.ghostty.desktop" = {
-      source = "${pkgs.ghostty}/share/applications/com.mitchellh.ghostty.desktop";
+    "xdg/autostart/com.ghostkellz.ghostshell.desktop" = {
+      source = "${pkgs.ghostty}/share/applications/com.ghostkellz.ghostshell.desktop";
     };
   };
 

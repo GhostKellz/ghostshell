@@ -1,17 +1,17 @@
-# Ghostty Development Process
+# Ghostshell Development Process
 
-This document describes the development process for Ghostty. It is intended for
-anyone considering opening an **issue** or **pull request**. If in doubt,
-please open a [discussion](https://github.com/ghostty-org/ghostty/discussions);
-we can always convert that to an issue later.
+This document describes the development process for Ghostshell (a fork of Ghostty). It is intended for
+anyone considering opening an **issue** or **pull request**. 
+
+> **Note**: Ghostshell is a fork of [Ghostty](https://github.com/ghostty-org/ghostty). For general Ghostty issues, 
+> please use the original project. For Ghostshell-specific issues (Zig 0.15, NVIDIA optimizations, Arch Linux packaging), 
+> use this repository.
 
 > [!NOTE]
 >
-> I'm sorry for the wall of text. I'm not trying to be difficult and I do
-> appreciate your contributions. Ghostty is a personal project for me that
-> I maintain in my free time. If you're expecting me to dedicate my personal
-> time to fixing bugs, maintaining features, and reviewing code, I do kindly
-> ask you spend a few minutes reading this document. Thank you. ❤️
+> Ghostshell is an experimental fork maintained by Christopher Kelley (GhostKellz) in free time. 
+> This fork focuses specifically on Zig 0.15 compatibility, NVIDIA optimizations, and Arch Linux integration.
+> For general terminal emulator features, consider contributing to the original Ghostty project instead.
 
 ## Quick Guide
 

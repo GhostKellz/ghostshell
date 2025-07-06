@@ -42,7 +42,7 @@ This guide covers installing Ghostshell - an enhanced terminal emulator based on
 3. **Install manually:**
    ```bash
    sudo cp zig-out/bin/ghostty /usr/local/bin/ghostshell
-   sudo cp zig-out/share/applications/com.mitchellh.ghostty.desktop /usr/share/applications/
+   sudo cp zig-out/share/applications/com.ghostkellz.ghostshell.desktop /usr/share/applications/
    sudo cp -r zig-out/share/icons/* /usr/share/icons/
    ```
 

@@ -472,8 +472,8 @@ pub const compatibility = std.StaticStringMap(
 /// The second directory is the `themes` subdirectory of the Ghostty resources
 /// directory. Ghostty ships with a multitude of themes that will be installed
 /// into this directory. On macOS, this list is in the
-/// `Ghostty.app/Contents/Resources/ghostty/themes` directory. On Linux, this
-/// list is in the `share/ghostty/themes` directory (wherever you installed the
+/// `Ghostshell.app/Contents/Resources/ghostshell/themes` directory. On Linux, this
+/// list is in the `share/ghostshell/themes` directory (wherever you installed the
 /// Ghostty "share" directory.
 ///
 /// To see a list of available themes, run `ghostty +list-themes`.
@@ -1098,7 +1098,7 @@ title: ?[:0]const u8 = null,
 /// The class name must follow the requirements defined [in the GTK
 /// documentation](https://docs.gtk.org/gio/type_func.Application.id_is_valid.html).
 ///
-/// The default is `com.mitchellh.ghostty`.
+/// The default is `com.ghostkellz.ghostshell`.
 ///
 /// This only affects GTK builds.
 class: ?[:0]const u8 = null,

@@ -13,7 +13,7 @@ This is the first release of Ghostshell - an enhanced terminal emulator based on
 ### Added
 - **Complete Ghostshell Branding**
   - Rebranded from Ghostty to Ghostshell throughout codebase
-  - Updated application ID from `com.mitchellh.ghostty` to `com.ghostkellz.ghostshell`
+  - Updated application ID from `com.ghostkellz.ghostshell` to `com.ghostkellz.ghostshell`
   - New Ghostshell icons and branding assets
   - Updated configuration path from `~/.config/ghostty` to `~/.config/ghostshell`
   - Binary renamed from `ghostty` to `ghostshell`

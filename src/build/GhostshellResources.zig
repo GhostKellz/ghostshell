@@ -390,19 +390,19 @@ fn addLinuxAppResources(
 
     try steps.append(&b.addInstallFile(
         b.path("images/icons/icon_16@2x.png"),
-        "share/icons/hicolor/16x16@2/apps/com.mitchellh.ghostty.png",
+        "share/icons/hicolor/16x16@2/apps/com.ghostkellz.ghostshell.png",
     ).step);
     try steps.append(&b.addInstallFile(
         b.path("images/icons/icon_32@2x.png"),
-        "share/icons/hicolor/32x32@2/apps/com.mitchellh.ghostty.png",
+        "share/icons/hicolor/32x32@2/apps/com.ghostkellz.ghostshell.png",
     ).step);
     try steps.append(&b.addInstallFile(
         b.path("images/icons/icon_128@2x.png"),
-        "share/icons/hicolor/128x128@2/apps/com.mitchellh.ghostty.png",
+        "share/icons/hicolor/128x128@2/apps/com.ghostkellz.ghostshell.png",
     ).step);
     try steps.append(&b.addInstallFile(
         b.path("images/icons/icon_256@2x.png"),
-        "share/icons/hicolor/256x256@2/apps/com.mitchellh.ghostty.png",
+        "share/icons/hicolor/256x256@2/apps/com.ghostkellz.ghostshell.png",
     ).step);
 }
 

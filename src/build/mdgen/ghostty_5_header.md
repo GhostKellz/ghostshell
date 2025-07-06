@@ -12,7 +12,7 @@ at `$XDG_CONFIG_HOME/ghostty/config`, which defaults to `~/.config/ghostty/confi
 if the [XDG environment is not set](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
 
 **If you are using macOS, the configuration file can also be placed at
-`$HOME/Library/Application Support/com.mitchellh.ghostty/config`.** This is the
+`$HOME/Library/Application Support/com.ghostkellz.ghostshell/config`.** This is the
 default configuration location for macOS. It will be searched before any of the
 XDG environment locations listed above.
 
@@ -76,7 +76,7 @@ If your configuration file has any errors, Ghostty does its best to ignore
 them and move on. Configuration errors currently show up in the log. The log
 is written directly to stderr, so it is up to you to figure out how to access
 that for your system (for now). On macOS, you can also use the system `log` CLI
-utility with `log stream --level debug --predicate 'subsystem=="com.mitchellh.ghostty"'`.
+utility with `log stream --level debug --predicate 'subsystem=="com.ghostkellz.ghostshell"'`.
 
 ## Debugging Configuration
 

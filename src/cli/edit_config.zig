@@ -32,7 +32,7 @@ pub const Options = struct {
 /// The filepath opened is the default user-specific configuration
 /// file, which is typically located at `$XDG_CONFIG_HOME/ghostty/config`.
 /// On macOS, this may also be located at
-/// `~/Library/Application Support/com.mitchellh.ghostty/config`.
+/// `~/Library/Application Support/com.ghostkellz.ghostshell/config`.
 /// On macOS, whichever path exists and is non-empty will be prioritized,
 /// prioritizing the Application Support directory if neither are
 /// non-empty.

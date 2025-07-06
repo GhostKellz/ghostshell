@@ -79,7 +79,7 @@ pub fn resourcesDir(alloc: Allocator) !ResourcesDir {
         if (comptime builtin.target.os.tag.isDarwin()) {
             inline for (sentinels) |sentinel| {
                 if (try maybeDir(&dir_buf, dir, "Contents/Resources", sentinel)) |v| {
-                    return .{ .app_path = try std.fs.path.join(alloc, &.{ v, "ghostty" }) };
+                    return .{ .app_path = try std.fs.path.join(alloc, &.{ v, "ghostshell" }) };
                 }
             }
         }
@@ -94,7 +94,7 @@ pub fn resourcesDir(alloc: Allocator) !ResourcesDir {
                 if (builtin.target.os.tag == .freebsd) "local/share" else "share",
                 sentinel,
             )) |v| {
-                return .{ .app_path = try std.fs.path.join(alloc, &.{ v, "ghostty" }) };
+                return .{ .app_path = try std.fs.path.join(alloc, &.{ v, "ghostshell" }) };
             }
         }
     }

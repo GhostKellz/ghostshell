@@ -46,7 +46,7 @@
     Ref: https://docs.flathub.org/docs/for-app-authors/metainfo-guidelines#manifest-location
 
   <custom>
-    <value key="flathub::manifest">https://github.com/ghostty-org/ghostty/blob/<hash>/flatpak/com.mitchellh.ghostty.yml</value>
+    <value key="flathub::manifest">https://github.com/ghostkellz/ghostshell/blob/<hash>/flatpak/com.ghostkellz.ghostshell.yml</value>
   </custom>
   -->
 

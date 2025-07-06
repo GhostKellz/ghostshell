@@ -131,7 +131,7 @@ fn logFn(
 
     // On Mac, we use unified logging. To view this:
     //
-    //   sudo log stream --level debug --predicate 'subsystem=="com.mitchellh.ghostty"'
+    //   sudo log stream --level debug --predicate 'subsystem=="com.ghostkellz.ghostshell"'
     //
     if (builtin.target.os.tag.isDarwin()) {
         // Convert our levels to Mac levels

@@ -6,7 +6,7 @@ const Config = @import("Config.zig");
 const gresource = @import("../apprt/gtk/gresource.zig");
 const internal_os = @import("../os/main.zig");
 
-const domain = "com.mitchellh.ghostty";
+const domain = "com.ghostkellz.ghostshell";
 
 owner: *std.Build,
 steps: []*std.Build.Step,

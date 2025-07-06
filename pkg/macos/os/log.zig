@@ -52,7 +52,7 @@ pub const LogType = enum(c.os_log_type_t) {
 test {
     const testing = std.testing;
 
-    const log = Log.create("com.mitchellh.ghostty", "test");
+    const log = Log.create("com.ghostkellz.ghostshell", "test");
     defer log.release();
 
     try testing.expect(log.typeEnabled(.fault));

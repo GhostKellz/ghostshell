@@ -48,7 +48,7 @@ class OpenInGhosttyAction(GObject.GObject, Nautilus.MenuProvider):
             pid = int(child.get_identifier())
             props = [("PIDs", GLib.Variant('au', [pid])),
                 ('CollectMode', GLib.Variant('s', 'inactive-or-failed'))]
-            name = 'app-nautilus-com.mitchellh.ghostty-{}.scope'.format(pid)
+            name = 'app-nautilus-com.ghostkellz.ghostshell-{}.scope'.format(pid)
             args = GLib.Variant('(ssa(sv)a(sa(sv)))', (name, 'fail', props, []))
             self._systemd.call_sync('StartTransientUnit', args,
                     Gio.DBusCallFlags.NO_AUTO_START, 500, None)
@@ -59,7 +59,7 @@ class OpenInGhosttyAction(GObject.GObject, Nautilus.MenuProvider):
 
     def _make_item(self, name, paths):
         item = Nautilus.MenuItem(name=name, label='Open in Ghostty',
-            icon='com.mitchellh.ghostty')
+            icon='com.ghostkellz.ghostshell')
         item.connect('activate', self._menu_item_activated, paths)
         return item
 

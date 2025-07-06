@@ -13,10 +13,10 @@ struct Ghostty {
     struct Notification {}
 
     // The user notification category identifier
-    static let userNotificationCategory = "com.mitchellh.ghostty.userNotification"
+    static let userNotificationCategory = "com.ghostkellz.ghostshell.userNotification"
 
     // The user notification "Show" action
-    static let userNotificationActionShow = "com.mitchellh.ghostty.userNotification.Show"
+    static let userNotificationActionShow = "com.ghostkellz.ghostshell.userNotification.Show"
 }
 
 // MARK: C Extensions
@@ -271,97 +271,97 @@ extension Ghostty {
 
 extension Notification.Name {
     /// Configuration change. If the object is nil then it is app-wide. Otherwise its surface-specific.
-    static let ghosttyConfigDidChange = Notification.Name("com.mitchellh.ghostty.configDidChange")
+    static let ghosttyConfigDidChange = Notification.Name("com.ghostkellz.ghostshell.configDidChange")
     static let GhosttyConfigChangeKey = ghosttyConfigDidChange.rawValue
 
     /// Color change. Object is the surface changing.
-    static let ghosttyColorDidChange = Notification.Name("com.mitchellh.ghostty.ghosttyColorDidChange")
+    static let ghosttyColorDidChange = Notification.Name("com.ghostkellz.ghostshell.ghosttyColorDidChange")
     static let GhosttyColorChangeKey = ghosttyColorDidChange.rawValue
 
     /// Goto tab. Has tab index in the userinfo.
-    static let ghosttyMoveTab = Notification.Name("com.mitchellh.ghostty.moveTab")
+    static let ghosttyMoveTab = Notification.Name("com.ghostkellz.ghostshell.moveTab")
     static let GhosttyMoveTabKey = ghosttyMoveTab.rawValue
 
     /// Close tab
-    static let ghosttyCloseTab = Notification.Name("com.mitchellh.ghostty.closeTab")
+    static let ghosttyCloseTab = Notification.Name("com.ghostkellz.ghostshell.closeTab")
 
     /// Close window
-    static let ghosttyCloseWindow = Notification.Name("com.mitchellh.ghostty.closeWindow")
+    static let ghosttyCloseWindow = Notification.Name("com.ghostkellz.ghostshell.closeWindow")
 
     /// Resize the window to a default size.
-    static let ghosttyResetWindowSize = Notification.Name("com.mitchellh.ghostty.resetWindowSize")
+    static let ghosttyResetWindowSize = Notification.Name("com.ghostkellz.ghostshell.resetWindowSize")
 
     /// Ring the bell
-    static let ghosttyBellDidRing = Notification.Name("com.mitchellh.ghostty.ghosttyBellDidRing")
-    static let ghosttyCommandPaletteDidToggle = Notification.Name("com.mitchellh.ghostty.commandPaletteDidToggle")
+    static let ghosttyBellDidRing = Notification.Name("com.ghostkellz.ghostshell.ghosttyBellDidRing")
+    static let ghosttyCommandPaletteDidToggle = Notification.Name("com.ghostkellz.ghostshell.commandPaletteDidToggle")
 
     /// Toggle maximize of current window
-    static let ghosttyMaximizeDidToggle = Notification.Name("com.mitchellh.ghostty.maximizeDidToggle")
+    static let ghosttyMaximizeDidToggle = Notification.Name("com.ghostkellz.ghostshell.maximizeDidToggle")
 }
 
 // NOTE: I am moving all of these to Notification.Name extensions over time. This
 // namespace was the old namespace.
 extension Ghostty.Notification {
     /// Used to pass a configuration along when creating a new tab/window/split.
-    static let NewSurfaceConfigKey = "com.mitchellh.ghostty.newSurfaceConfig"
+    static let NewSurfaceConfigKey = "com.ghostkellz.ghostshell.newSurfaceConfig"
 
     /// Posted when a new split is requested. The sending object will be the surface that had focus. The
     /// userdata has one key "direction" with the direction to split to.
-    static let ghosttyNewSplit = Notification.Name("com.mitchellh.ghostty.newSplit")
+    static let ghosttyNewSplit = Notification.Name("com.ghostkellz.ghostshell.newSplit")
 
     /// Close the calling surface.
-    static let ghosttyCloseSurface = Notification.Name("com.mitchellh.ghostty.closeSurface")
+    static let ghosttyCloseSurface = Notification.Name("com.ghostkellz.ghostshell.closeSurface")
 
     /// Focus previous/next split. Has a SplitFocusDirection in the userinfo.
-    static let ghosttyFocusSplit = Notification.Name("com.mitchellh.ghostty.focusSplit")
+    static let ghosttyFocusSplit = Notification.Name("com.ghostkellz.ghostshell.focusSplit")
     static let SplitDirectionKey = ghosttyFocusSplit.rawValue
 
     /// Goto tab. Has tab index in the userinfo.
-    static let ghosttyGotoTab = Notification.Name("com.mitchellh.ghostty.gotoTab")
+    static let ghosttyGotoTab = Notification.Name("com.ghostkellz.ghostshell.gotoTab")
     static let GotoTabKey = ghosttyGotoTab.rawValue
 
     /// New tab. Has base surface config requested in userinfo.
-    static let ghosttyNewTab = Notification.Name("com.mitchellh.ghostty.newTab")
+    static let ghosttyNewTab = Notification.Name("com.ghostkellz.ghostshell.newTab")
 
     /// New window. Has base surface config requested in userinfo.
-    static let ghosttyNewWindow = Notification.Name("com.mitchellh.ghostty.newWindow")
+    static let ghosttyNewWindow = Notification.Name("com.ghostkellz.ghostshell.newWindow")
 
     /// Toggle fullscreen of current window
-    static let ghosttyToggleFullscreen = Notification.Name("com.mitchellh.ghostty.toggleFullscreen")
+    static let ghosttyToggleFullscreen = Notification.Name("com.ghostkellz.ghostshell.toggleFullscreen")
     static let FullscreenModeKey = ghosttyToggleFullscreen.rawValue
 
     /// Notification sent to toggle split maximize/unmaximize.
-    static let didToggleSplitZoom = Notification.Name("com.mitchellh.ghostty.didToggleSplitZoom")
+    static let didToggleSplitZoom = Notification.Name("com.ghostkellz.ghostshell.didToggleSplitZoom")
 
     /// Notification
-    static let didReceiveInitialWindowFrame = Notification.Name("com.mitchellh.ghostty.didReceiveInitialWindowFrame")
-    static let FrameKey = "com.mitchellh.ghostty.frame"
+    static let didReceiveInitialWindowFrame = Notification.Name("com.ghostkellz.ghostshell.didReceiveInitialWindowFrame")
+    static let FrameKey = "com.ghostkellz.ghostshell.frame"
 
     /// Notification to render the inspector for a surface
-    static let inspectorNeedsDisplay = Notification.Name("com.mitchellh.ghostty.inspectorNeedsDisplay")
+    static let inspectorNeedsDisplay = Notification.Name("com.ghostkellz.ghostshell.inspectorNeedsDisplay")
 
     /// Notification to show/hide the inspector
-    static let didControlInspector = Notification.Name("com.mitchellh.ghostty.didControlInspector")
+    static let didControlInspector = Notification.Name("com.ghostkellz.ghostshell.didControlInspector")
 
-    static let confirmClipboard = Notification.Name("com.mitchellh.ghostty.confirmClipboard")
+    static let confirmClipboard = Notification.Name("com.ghostkellz.ghostshell.confirmClipboard")
     static let ConfirmClipboardStrKey = confirmClipboard.rawValue + ".str"
     static let ConfirmClipboardStateKey = confirmClipboard.rawValue + ".state"
     static let ConfirmClipboardRequestKey = confirmClipboard.rawValue + ".request"
 
     /// Notification sent to the active split view to resize the split.
-    static let didResizeSplit = Notification.Name("com.mitchellh.ghostty.didResizeSplit")
+    static let didResizeSplit = Notification.Name("com.ghostkellz.ghostshell.didResizeSplit")
     static let ResizeSplitDirectionKey = didResizeSplit.rawValue + ".direction"
     static let ResizeSplitAmountKey = didResizeSplit.rawValue + ".amount"
 
     /// Notification sent to the split root to equalize split sizes
-    static let didEqualizeSplits = Notification.Name("com.mitchellh.ghostty.didEqualizeSplits")
+    static let didEqualizeSplits = Notification.Name("com.ghostkellz.ghostshell.didEqualizeSplits")
 
     /// Notification that renderer health changed
-    static let didUpdateRendererHealth = Notification.Name("com.mitchellh.ghostty.didUpdateRendererHealth")
+    static let didUpdateRendererHealth = Notification.Name("com.ghostkellz.ghostshell.didUpdateRendererHealth")
 
     /// Notifications related to key sequences
-    static let didContinueKeySequence = Notification.Name("com.mitchellh.ghostty.didContinueKeySequence")
-    static let didEndKeySequence = Notification.Name("com.mitchellh.ghostty.didEndKeySequence")
+    static let didContinueKeySequence = Notification.Name("com.ghostkellz.ghostshell.didContinueKeySequence")
+    static let didEndKeySequence = Notification.Name("com.ghostkellz.ghostshell.didEndKeySequence")
     static let KeySequenceKey = didContinueKeySequence.rawValue + ".key"
 }
 
