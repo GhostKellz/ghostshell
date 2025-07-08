@@ -117,6 +117,7 @@ package() {
     mkdir -p "$pkgdir/usr/share/doc/$pkgname/examples"
     cat > "$pkgdir/usr/share/doc/$pkgname/examples/nvidia-config" << 'EOF'
 # Ghostshell NVIDIA Optimizations Configuration
+EOF
 
     # Install shell configuration scripts
     install -Dm755 scripts/import-shell-config.sh "$pkgdir/usr/share/ghostshell/scripts/import-shell-config.sh"
