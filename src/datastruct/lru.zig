@@ -33,8 +33,44 @@ pub fn HashMap(
 ) type {
     return struct {
         const Self = @This();
+        const Queue = struct {
+            pub const Node = struct {
+                data: KV,
+                prev: ?*@This() = null,
+                next: ?*@This() = null,
+            };
+            first: ?*Node = null,
+            last: ?*Node = null,
+            len: usize = 0,
+            
+            pub fn append(self: *@This(), node: *Node) void {
+                if (self.last) |last| {
+                    last.next = node;
+                    node.prev = last;
+                } else {
+                    self.first = node;
+                    node.prev = null;
+                }
+                node.next = null;
+                self.last = node;
+                self.len += 1;
+            }
+            
+            pub fn remove(self: *@This(), node: *Node) void {
+                if (node.prev) |prev| {
+                    prev.next = node.next;
+                } else {
+                    self.first = node.next;
+                }
+                if (node.next) |next| {
+                    next.prev = node.prev;
+                } else {
+                    self.last = node.prev;
+                }
+                self.len -= 1;
+            }
+        };
         const Map = std.HashMapUnmanaged(K, *Queue.Node, Context, max_load_percentage);
-        const Queue = std.DoublyLinkedList(KV);
 
         /// Map to maintain our entries.
         map: Map,

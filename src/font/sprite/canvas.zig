@@ -3,7 +3,7 @@
 const std = @import("std");
 const assert = std.debug.assert;
 const Allocator = std.mem.Allocator;
-const z2d = @import("z2d");
+const graphics = @import("../../graphics/main.zig");
 const font = @import("../main.zig");
 
 pub fn Point(comptime T: type) type {
@@ -79,7 +79,7 @@ pub const Color = enum(u8) {
 /// necessary allocations when drawing.
 pub const Canvas = struct {
     /// The underlying z2d surface.
-    sfc: z2d.Surface,
+    sfc: graphics.Canvas,
 
     padding_x: u32,
     padding_y: u32,
@@ -100,13 +100,12 @@ pub const Canvas = struct {
     ) !Canvas {
         // Create the surface we'll be using.
         // We add padding to both sides (hence `2 *`)
-        const sfc = try z2d.Surface.initPixel(
-            .{ .alpha8 = .{ .a = 0 } },
+        const sfc = try graphics.Canvas.init(
             alloc,
             @intCast(width + 2 * padding_x),
             @intCast(height + 2 * padding_y),
         );
-        errdefer sfc.deinit(alloc);
+        errdefer sfc.deinit();
 
         return .{
             .sfc = sfc,
@@ -117,7 +116,7 @@ pub const Canvas = struct {
     }
 
     pub fn deinit(self: *Canvas) void {
-        self.sfc.deinit(self.alloc);
+        self.sfc.deinit();
         self.* = undefined;
     }
 
@@ -259,7 +258,7 @@ pub const Canvas = struct {
     }
 
     /// Return a transformation representing the translation for our padding.
-    pub fn transformation(self: Canvas) z2d.Transformation {
+    pub fn transformation(self: Canvas) graphics.Transformation {
         return .{
             .ax = 1,
             .by = 0,
@@ -271,8 +270,8 @@ pub const Canvas = struct {
     }
 
     /// Acquires a z2d drawing context, caller MUST deinit context.
-    pub fn getContext(self: *Canvas) z2d.Context {
-        var ctx = z2d.Context.init(self.alloc, &self.sfc);
+    pub fn getContext(self: *Canvas) graphics.Context {
+        var ctx = graphics.Context.init(self.alloc, &self.sfc);
         // Offset by our padding to keep
         // coordinates relative to the cell.
         ctx.setTransformation(self.transformation());
@@ -281,7 +280,7 @@ pub const Canvas = struct {
 
     /// Draw and fill a single pixel
     pub fn pixel(self: *Canvas, x: i32, y: i32, color: Color) void {
-        self.sfc.putPixel(
+        self.sfc.putPixelCompat(
             x + @as(i32, @intCast(self.padding_x)),
             y + @as(i32, @intCast(self.padding_y)),
             .{ .alpha8 = .{ .a = @intFromEnum(color) } },
@@ -366,8 +365,10 @@ pub const Canvas = struct {
     pub inline fn staticPath(
         self: *Canvas,
         comptime len: usize,
-    ) z2d.StaticPath(len) {
-        var path: z2d.StaticPath(len) = .{};
+    ) graphics.StaticPath(len) {
+        var path: graphics.StaticPath(len) = .{
+            .wrapped_path = graphics.Path.init(self.alloc),
+        };
         path.init();
         path.wrapped_path.transformation = self.transformation();
         return path;
@@ -376,11 +377,11 @@ pub const Canvas = struct {
     /// Stroke a z2d path.
     pub fn strokePath(
         self: *Canvas,
-        path: z2d.Path,
-        opts: z2d.painter.StrokeOpts,
+        path: graphics.Path,
+        opts: graphics.painter.StrokeOpts,
         color: Color,
-    ) z2d.painter.StrokeError!void {
-        try z2d.painter.stroke(
+    ) graphics.painter.StrokeError!void {
+        try graphics.painter.stroke(
             self.alloc,
             &self.sfc,
             &.{ .opaque_pattern = .{
@@ -396,14 +397,14 @@ pub const Canvas = struct {
     /// should add inner and outer strokes natively.
     pub fn innerStrokePath(
         self: *Canvas,
-        path: z2d.Path,
-        opts: z2d.painter.StrokeOpts,
+        path: graphics.Path,
+        opts: graphics.painter.StrokeOpts,
         color: Color,
-    ) (z2d.painter.StrokeError || z2d.painter.FillError)!void {
+    ) (graphics.painter.StrokeError || graphics.painter.FillError)!void {
         // On one surface we fill the shape, this will be a mask we
         // multiply with the double-width stroke so that only the
         // part inside is used.
-        var fill_sfc: z2d.Surface = try .init(
+        var fill_sfc: graphics.Surface = try .init(
             .image_surface_alpha8,
             self.alloc,
             self.sfc.getWidth(),
@@ -412,7 +413,7 @@ pub const Canvas = struct {
         defer fill_sfc.deinit(self.alloc);
 
         // On the other we'll do the double width stroke.
-        var stroke_sfc: z2d.Surface = try .init(
+        var stroke_sfc: graphics.Surface = try .init(
             .image_surface_alpha8,
             self.alloc,
             self.sfc.getWidth(),
@@ -423,7 +424,7 @@ pub const Canvas = struct {
         // Make a closed version of the path for our fill, so
         // that we can support open paths for inner stroke.
         var closed_path = path;
-        closed_path.nodes = try path.nodes.clone(self.alloc);
+        closed_path.nodes = try path.nodes.clone();
         defer closed_path.deinit(self.alloc);
         try closed_path.close(self.alloc);
 
@@ -431,7 +432,7 @@ pub const Canvas = struct {
         // white because this is a mask that we'll multiply with
         // the stroke, we want everything inside to be the stroke
         // color.
-        try z2d.painter.fill(
+        try graphics.painter.fill(
             self.alloc,
             &fill_sfc,
             &.{ .opaque_pattern = .{
@@ -444,7 +445,7 @@ pub const Canvas = struct {
         // Stroke the shape with double the desired width.
         var mut_opts = opts;
         mut_opts.line_width *= 2;
-        try z2d.painter.stroke(
+        try graphics.painter.stroke(
             self.alloc,
             &stroke_sfc,
             &.{ .opaque_pattern = .{
@@ -475,11 +476,11 @@ pub const Canvas = struct {
     /// Fill a z2d path.
     pub fn fillPath(
         self: *Canvas,
-        path: z2d.Path,
-        opts: z2d.painter.FillOpts,
+        path: graphics.Path,
+        opts: graphics.painter.FillOpts,
         color: Color,
-    ) z2d.painter.FillError!void {
-        try z2d.painter.fill(
+    ) graphics.painter.FillError!void {
+        try graphics.painter.fill(
             self.alloc,
             &self.sfc,
             &.{ .opaque_pattern = .{

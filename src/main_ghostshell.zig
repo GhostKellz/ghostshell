@@ -20,6 +20,7 @@ const apprt = @import("apprt.zig");
 const App = @import("App.zig");
 const Ghostty = @import("main_c.zig").Ghostty;
 const state = &@import("global.zig").state;
+const async_runtime = @import("async_runtime.zig");
 
 /// The return type for main() depends on the build artifact. The lib build
 /// also calls "main" in order to run the CLI actions, but it calls it as
@@ -94,6 +95,29 @@ pub fn main() !MainReturn {
         );
 
         posix.exit(0);
+    }
+
+    // Initialize async runtime for ghostshell
+    var async_rt = try async_runtime.initGlobalRuntime(alloc);
+    defer async_rt.deinit();
+    std.log.info("async runtime initialized using tokioZ", .{});
+    
+    // Initialize async terminal for event processing
+    var async_terminal = try async_runtime.AsyncTerminal.init(&async_rt, alloc);
+    defer async_terminal.deinit();
+    std.log.info("async terminal event handler initialized", .{});
+    
+    // Demonstrate async capabilities (optional)
+    if (comptime builtin.mode == .Debug) {
+        // Spawn a demo async task to show tokioZ integration
+        const DemoTask = struct {
+            fn demoAsyncTask() !void {
+                std.log.info("🚀 tokioZ async task executing in ghostshell!", .{});
+            }
+        };
+        _ = async_rt.spawn(DemoTask.demoAsyncTask, .{}) catch |err| {
+            std.log.warn("async demo task failed: {}", .{err});
+        };
     }
 
     // Create our app state

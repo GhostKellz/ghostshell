@@ -17,7 +17,7 @@ const builtin = @import("builtin");
 const assert = std.debug.assert;
 const Allocator = std.mem.Allocator;
 const wuffs = @import("wuffs");
-const z2d = @import("z2d");
+const graphics = @import("../../graphics/main.zig");
 const font = @import("../main.zig");
 const Sprite = font.sprite.Sprite;
 
@@ -30,8 +30,8 @@ metrics: font.Metrics,
 
 pub const DrawFnError =
     Allocator.Error ||
-    z2d.painter.FillError ||
-    z2d.painter.StrokeError ||
+    graphics.painter.FillError ||
+    graphics.painter.StrokeError ||
     error{
         /// Something went wrong while doing math.
         MathError,
@@ -236,7 +236,7 @@ pub fn renderGlyph(
 /// and the reference file for the range, returns true if there is a diff.
 fn testDiffAtlas(
     alloc: Allocator,
-    atlas: *z2d.Surface,
+    atlas: *graphics.Surface,
     path: []const u8,
     i: u32,
     width: u32,
@@ -317,8 +317,8 @@ fn testDiffAtlas(
     // We'll make a visual representation of the diff using
     // red for removed pixels and green for added. We make
     // a z2d surface for that here.
-    var diff = try z2d.Surface.init(
-        .image_surface_rgb,
+    var diff = try graphics.Surface.init(
+        .rgb, // image format
         alloc,
         atlas.getWidth(),
         atlas.getHeight(),
@@ -367,7 +367,7 @@ fn testDiffAtlas(
         .{ i, i + 0xFF, width, height, thickness },
     );
     defer alloc.free(diff_path);
-    try z2d.png_exporter.writeToPNGFile(diff, diff_path, .{});
+    try graphics.png_exporter.writeToPNGFile(diff, diff_path, .{});
     log.err(
         "One or more glyphs differ from reference file in range U+{X}...U+{X}! " ++
             "test={s}, reference={s}, diff={s}",
@@ -419,8 +419,8 @@ fn testDrawRanges(
     // a 16 by 16 surface to be compared with the reference file for that range.
     const stride_x = width + 2 * padding_x;
     const stride_y = height + 2 * padding_y;
-    var atlas = try z2d.Surface.init(
-        .image_surface_alpha8,
+    var atlas = try graphics.Surface.init(
+        .rgb, // image format
         alloc,
         @intCast(stride_x * 16),
         @intCast(stride_y * 16),
@@ -451,7 +451,7 @@ fn testDrawRanges(
                     .{ tmp_dir, i, i + 0xFF, width, height, thickness },
                 );
                 defer alloc.free(path);
-                try z2d.png_exporter.writeToPNGFile(atlas, path, .{});
+                try graphics.png_exporter.writeToPNGFile(atlas, path, .{});
 
                 if (try testDiffAtlas(
                     alloc,
@@ -496,7 +496,7 @@ fn testDrawRanges(
         .{ tmp_dir, i, i + 0xFF, width, height, thickness },
     );
     defer alloc.free(path);
-    try z2d.png_exporter.writeToPNGFile(atlas, path, .{});
+    try graphics.png_exporter.writeToPNGFile(atlas, path, .{});
     if (try testDiffAtlas(
         alloc,
         &atlas,

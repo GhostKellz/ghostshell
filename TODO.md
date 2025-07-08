@@ -6,21 +6,6 @@ This document outlines planned features and enhancements for future versions of 
 
 ### ⚡ Core Dependencies Optimization
 
-#### ZCrypto Integration Enhancement
-- **ZCrypto Library Optimization**
-  - Optimize ZCrypto as a core dependency for cryptographic operations
-  - Performance tuning for SSH/GPG key operations
-  - Memory-efficient cryptographic algorithms
-  - Integration with Zig's async capabilities
-  - Configuration option: `zcrypto-optimizations = true`
-
-- **Cryptographic Performance**
-  - Hardware-accelerated crypto operations where available
-  - AES-NI instruction set utilization
-  - Optimized hash functions (SHA-256, SHA-512)
-  - Elliptic curve cryptography optimization
-  - Benchmarking and performance monitoring
-
 #### TokioZ Async Runtime Enhancement
 - **TokioZ Dependency Optimization**
   - Optimize TokioZ as core async runtime dependency
@@ -232,8 +217,8 @@ This document outlines planned features and enhancements for future versions of 
 ## Implementation Priorities
 
 ### High Priority (v1.1.0)
-1. SSH/GPG keychain integration - Essential for developer workflow
-2. Pure Zig tab implementation - Core feature differentiator
+1. SSH/GPG keychain integration - Essential for developer workflow (view assets termius folder for references and ideas for how we may implemenet this, keep ghostty style default but enabled via config)
+2. Pure Zig tab implementation - Core feature differentiator (this will be able to be controlled via config true is on. See assets screenshot termius folder for references)
 3. TMux-style multiplexing - Replace external dependencies
 
 ### Medium Priority (v1.2.0)

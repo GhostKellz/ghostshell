@@ -374,7 +374,7 @@ test "shadertoy to msl" {
     const src = try testGlslZ(alloc, test_crt);
     defer alloc.free(src);
 
-    var spvlist = std.ArrayListAligned(u8, @alignOf(u32)).init(alloc);
+    var spvlist = std.ArrayListAligned(u8, @enumFromInt(@alignOf(u32))).init(alloc);
     defer spvlist.deinit();
     try spirvFromGlsl(spvlist.writer(), null, src);
 
@@ -389,7 +389,7 @@ test "shadertoy to glsl" {
     const src = try testGlslZ(alloc, test_crt);
     defer alloc.free(src);
 
-    var spvlist = std.ArrayListAligned(u8, @alignOf(u32)).init(alloc);
+    var spvlist = std.ArrayListAligned(u8, @enumFromInt(@alignOf(u32))).init(alloc);
     defer spvlist.deinit();
     try spirvFromGlsl(spvlist.writer(), null, src);
 

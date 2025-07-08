@@ -400,7 +400,7 @@ test "BitmapAllocator alloc sequentially" {
     const testing = std.testing;
     const alloc = testing.allocator;
     const layout = Alloc.layout(cap);
-    const buf = try alloc.alignedAlloc(u8, Alloc.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Alloc.base_align), layout.total_size);
     defer alloc.free(buf);
 
     var bm = Alloc.init(.init(buf), layout);
@@ -426,7 +426,7 @@ test "BitmapAllocator alloc non-byte" {
     const testing = std.testing;
     const alloc = testing.allocator;
     const layout = Alloc.layout(cap);
-    const buf = try alloc.alignedAlloc(u8, Alloc.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Alloc.base_align), layout.total_size);
     defer alloc.free(buf);
 
     var bm = Alloc.init(.init(buf), layout);
@@ -450,7 +450,7 @@ test "BitmapAllocator alloc non-byte multi-chunk" {
     const testing = std.testing;
     const alloc = testing.allocator;
     const layout = Alloc.layout(cap);
-    const buf = try alloc.alignedAlloc(u8, Alloc.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Alloc.base_align), layout.total_size);
     defer alloc.free(buf);
 
     var bm = Alloc.init(.init(buf), layout);
@@ -475,7 +475,7 @@ test "BitmapAllocator alloc large" {
     const testing = std.testing;
     const alloc = testing.allocator;
     const layout = Alloc.layout(cap);
-    const buf = try alloc.alignedAlloc(u8, Alloc.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Alloc.base_align), layout.total_size);
     defer alloc.free(buf);
 
     var bm = Alloc.init(.init(buf), layout);

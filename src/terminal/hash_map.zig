@@ -890,7 +890,7 @@ test "HashMap basic usage" {
     const alloc = testing.allocator;
     const cap = 16;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
 
     var map = Map.init(.init(buf), layout);
@@ -925,7 +925,7 @@ test "HashMap ensureTotalCapacity" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -945,7 +945,7 @@ test "HashMap ensureUnusedCapacity with tombstones" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -963,7 +963,7 @@ test "HashMap clearRetainingCapacity" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -994,7 +994,7 @@ test "HashMap ensureTotalCapacity with existing elements" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1013,7 +1013,7 @@ test "HashMap remove" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1051,7 +1051,7 @@ test "HashMap reverse removes" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1079,7 +1079,7 @@ test "HashMap multiple removes on same metadata" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1122,7 +1122,7 @@ test "HashMap put and remove loop in random order" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1160,7 +1160,7 @@ test "HashMap put" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1191,7 +1191,7 @@ test "HashMap put full load" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1207,7 +1207,7 @@ test "HashMap putAssumeCapacity" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1242,7 +1242,7 @@ test "HashMap repeat putAssumeCapacity/remove" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1278,7 +1278,7 @@ test "HashMap getOrPut" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1307,7 +1307,7 @@ test "HashMap basic hash map usage" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1358,7 +1358,7 @@ test "HashMap ensureUnusedCapacity" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1372,7 +1372,7 @@ test "HashMap removeByPtr" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1403,7 +1403,7 @@ test "HashMap removeByPtr 0 sized key" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1427,7 +1427,7 @@ test "HashMap repeat fetchRemove" {
 
     const alloc = testing.allocator;
     const layout = Map.layoutForCapacity(cap);
-    const buf = try alloc.alignedAlloc(u8, Map.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(Map.base_align), layout.total_size);
     defer alloc.free(buf);
     var map = Map.init(.init(buf), layout);
 
@@ -1455,7 +1455,7 @@ test "OffsetHashMap basic usage" {
 
     const alloc = testing.allocator;
     const layout = OffsetMap.layout(cap);
-    const buf = try alloc.alignedAlloc(u8, OffsetMap.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(OffsetMap.base_align), layout.total_size);
     defer alloc.free(buf);
     var offset_map = OffsetMap.init(.init(buf), layout);
     var map = offset_map.map(buf.ptr);
@@ -1490,7 +1490,7 @@ test "OffsetHashMap remake map" {
 
     const alloc = testing.allocator;
     const layout = OffsetMap.layout(cap);
-    const buf = try alloc.alignedAlloc(u8, OffsetMap.base_align, layout.total_size);
+    const buf = try alloc.alignedAlloc(u8, @enumFromInt(OffsetMap.base_align), layout.total_size);
     defer alloc.free(buf);
     var offset_map = OffsetMap.init(.init(buf), layout);
 

@@ -405,12 +405,14 @@ pub fn add(
     })) |dep| {
         step.root_module.addImport("xev", dep.module("xev"));
     }
-    if (b.lazyDependency("z2d", .{
-        .target = target,
-        .optimize = optimize,
-    })) |dep| {
-        step.root_module.addImport("z2d", dep.module("z2d"));
-    }
+    // TODO: z2d disabled - needs extensive Zig 0.15 linked list API fixes
+    // Multiple files need updating for SinglyLinkedList/DoublyLinkedList changes  
+    // if (b.lazyDependency("z2d", .{
+    //     .target = target,
+    //     .optimize = optimize,
+    // })) |dep| {
+    //     step.root_module.addImport("z2d", dep.module("z2d"));
+    // }
     if (b.lazyDependency("ziglyph", .{
         .target = target,
         .optimize = optimize,
@@ -423,6 +425,14 @@ pub fn add(
         .with_tui = false,
     })) |dep| {
         step.root_module.addImport("zf", dep.module("zf"));
+    }
+
+    // Async runtime for Zig
+    if (b.lazyDependency("TokioZ", .{
+        .target = target,
+        .optimize = optimize,
+    })) |dep| {
+        step.root_module.addImport("tokioZ", dep.module("TokioZ"));
     }
 
     // Mac Stuff
