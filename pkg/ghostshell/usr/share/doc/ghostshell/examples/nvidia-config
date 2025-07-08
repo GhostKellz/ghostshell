@@ -1,0 +1,20 @@
+# Ghostshell NVIDIA Optimizations Configuration
+# Copy to ~/.config/ghostshell/config
+
+# NVIDIA GPU optimizations
+vsync = true
+sync = false
+
+# Performance settings for NVIDIA
+window-decoration = false
+macos-option-as-alt = false
+
+# Font rendering optimizations
+font-feature = -calt
+font-feature = -liga
+
+# Colors optimized for NVIDIA displays
+theme = "dark"
+
+# Terminal performance
+scrollback-limit = 100000

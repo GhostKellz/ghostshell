@@ -1,0 +1,25 @@
+[Desktop Entry]
+Version=1.0
+Name=Ghostshell
+Type=Application
+Comment=A terminal emulator
+TryExec=/data/projects/ghostshell/src/ghostshell/zig-out/bin/ghostshell
+Exec=/data/projects/ghostshell/src/ghostshell/zig-out/bin/ghostshell --launched-from=desktop
+Icon=ghostshell
+Categories=System;TerminalEmulator;
+Keywords=terminal;tty;pty;
+StartupNotify=true
+StartupWMClass=com.ghostkellz.ghostshell
+Terminal=false
+Actions=new-window;
+X-GNOME-UsesNotifications=true
+X-TerminalArgExec=-e
+X-TerminalArgTitle=--title=
+X-TerminalArgAppId=--class=
+X-TerminalArgDir=--working-directory=
+X-TerminalArgHold=--wait-after-command
+DBusActivatable=true
+
+[Desktop Action new-window]
+Name=New Window
+Exec=/data/projects/ghostshell/src/ghostshell/zig-out/bin/ghostshell --launched-from=desktop

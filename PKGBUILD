@@ -1,8 +1,8 @@
 # Maintainer: Christopher Kelley <ckelley@ghostkellz.sh>
 pkgname=ghostshell
-pkgver=0.1.0
+pkgver=1.0.1.r8.50235ba
 pkgrel=1
-pkgdesc="Ghostshell - Enhanced terminal emulator based on Ghostty with Zig 0.15 and NVIDIA optimizations"
+pkgdesc="Ghostshell - Enhanced terminal emulator with vivid colors, theme integration, Zig 0.15 and NVIDIA optimizations"
 arch=('x86_64')
 url="https://github.com/ghostkellz/ghostshell"
 license=('MIT')
@@ -21,7 +21,7 @@ depends=(
     'libx11'
 )
 makedepends=(
-    'zig>=0.15.0'
+    'zig'
     'git'
     'pandoc'
     'pkgconf'
@@ -38,15 +38,15 @@ source=("git+file://$(realpath .)")
 sha256sums=('SKIP')
 
 pkgver() {
-    cd "$srcdir/$(basename $(realpath .))"
-    echo "0.1.0.r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+    cd "$srcdir/ghostshell"
+    echo "1.0.1.r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
 }
 
 prepare() {
-    cd "$srcdir/$(basename $(realpath .))"
+    cd "$srcdir/ghostshell"
     
     # Ensure we're using the current directory with our fixes
-    echo "Building Ghostshell v0.1.0 with Zig 0.15 compatibility and NVIDIA optimizations"
+    echo "Building Ghostshell v1.0.1 with vivid colors, theme integration, and NVIDIA optimizations"
     
     # Verify our key optimization files are present
     if [[ ! -f "nvidia-optimizations.md" ]]; then
@@ -54,13 +54,13 @@ prepare() {
     fi
     
     # Check that our Zig 0.15 fixes are applied
-    if ! grep -q "conditional import" src/config/Config.zig; then
+    if [[ -f "src/config.zig" ]] && ! grep -q "conditional import" src/config.zig; then
         echo "Warning: Zig 0.15 compatibility fixes may not be applied"
     fi
 }
 
 build() {
-    cd "$srcdir/$(basename $(realpath .))"
+    cd "$srcdir/ghostshell"
     
     # Set build flags for optimization
     export CFLAGS="$CFLAGS -O3 -march=native"
@@ -72,7 +72,7 @@ build() {
 }
 
 check() {
-    cd "$srcdir/$(basename $(realpath .))"
+    cd "$srcdir/ghostshell"
     
     # Verify the binary was built
     if [[ ! -f "zig-out/bin/ghostshell" ]]; then
@@ -86,7 +86,7 @@ check() {
 }
 
 package() {
-    cd "$srcdir/$(basename $(realpath .))"
+    cd "$srcdir/ghostshell"
     
     # Install binary
     install -Dm755 zig-out/bin/ghostshell "$pkgdir/usr/bin/ghostshell"
@@ -107,22 +107,6 @@ package() {
         cp -r zig-out/share/man "$pkgdir/usr/share/"
     fi
     
-    # Install completion files if they exist
-    if [[ -d "zig-out/share/bash-completion" ]]; then
-        install -Dm644 zig-out/share/bash-completion/completions/ghostshell \
-            "$pkgdir/usr/share/bash-completion/completions/ghostshell"
-    fi
-    
-    if [[ -d "zig-out/share/zsh" ]]; then
-        install -Dm644 zig-out/share/zsh/site-functions/_ghostshell \
-            "$pkgdir/usr/share/zsh/site-functions/_ghostshell"
-    fi
-    
-    if [[ -d "zig-out/share/fish" ]]; then
-        install -Dm644 zig-out/share/fish/vendor_completions.d/ghostshell.fish \
-            "$pkgdir/usr/share/fish/vendor_completions.d/ghostshell.fish"
-    fi
-    
     # Install license
     install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
     
@@ -133,27 +117,7 @@ package() {
     mkdir -p "$pkgdir/usr/share/doc/$pkgname/examples"
     cat > "$pkgdir/usr/share/doc/$pkgname/examples/nvidia-config" << 'EOF'
 # Ghostshell NVIDIA Optimizations Configuration
-# Copy to ~/.config/ghostshell/config
 
-# NVIDIA GPU optimizations
-vsync = true
-sync = false
-
-# Performance settings for NVIDIA
-window-decoration = false
-macos-option-as-alt = false
-
-# Font rendering optimizations
-font-feature = -calt
-font-feature = -liga
-
-# Colors optimized for NVIDIA displays
-theme = "dark"
-
-# Terminal performance
-scrollback-limit = 100000
-EOF
-    
     # Install shell configuration scripts
     install -Dm755 scripts/import-shell-config.sh "$pkgdir/usr/share/ghostshell/scripts/import-shell-config.sh"
     install -Dm755 scripts/auto-detect-shell.sh "$pkgdir/usr/share/ghostshell/scripts/auto-detect-shell.sh"
