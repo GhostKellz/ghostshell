@@ -47,7 +47,11 @@
 
 function prompt_arch_logo() {
   p10k segment -f 18 -b 33 -t ''
-}	
+}
+
+function instant_prompt_arch_logo() {
+  prompt_arch_logo
+}
 
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
